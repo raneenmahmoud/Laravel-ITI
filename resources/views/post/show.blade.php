@@ -36,10 +36,43 @@
         <div class="accordion-body mb-3">
             @foreach($comments as $comment)
                 <div class="card w-30">
-                    <div class="card-body">
+                    <div class="card-body d-flex justify-content-between">
+                        <div>
                         <p class="card-text fs-3">{{$comment->comment}}</p>
-                        <span class="card-text fs-5">{{$comment->created_at}}</span><br>
+                        <span class="card-text fs-5">{{$comment->created_at}}</span>
+                        </div>
+                        <div>
+                        <form action="{{route('comments.destroy', $comment->id)}}" method="post">
+                        @csrf
+                        @method('DELETE')
+                            <!-- <button type="submit" class="btn btn-danger" onclick="return myFunction()"> Delete </button> -->
+                            <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirm-delete-modal{{$post->id}}">
+                        Delete
+                        </button>
+
+                        <!--Delete  Modal -->
+                        <div class="modal fade" id="confirm-delete-modal{{$post->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                            <div class="modal-header">
+                                <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Delete</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <h6> Are you sure, you want to delete this comment? </h6>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Delete</button>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </form>
                     </div>
+                    </div>
+                    
                 </div><br>
             @endforeach
         </div>

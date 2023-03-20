@@ -25,7 +25,7 @@
                     <td>{{$post->title}}</td>
                     <td>{{$post->user->name}}</td>
                     <td>{{$post->created_at->format('Y-m-d')}}</td>
-                    <td>{{$post->updated_at}}</td>
+                    <td>{{$post->updated_at->format('Y h:i:s A')}}</td>
 
                     <td  class="d-flex gap-3">
                     <x-button :link="route('posts.show', $post->id)">View</x-button>

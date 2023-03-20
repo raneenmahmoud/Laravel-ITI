@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\Comment;
 
 class CommentController extends Controller
 {
@@ -14,6 +15,12 @@ class CommentController extends Controller
         $post->comments()->create([
             'comment' => $comment,
         ]);;
+        return redirect()->back();
+    }
+    public function destroy($id){
+        $comment = Comment::where('id', $id)->first();
+        // dd($id);
+        $comment->delete();
         return redirect()->back();
     }
 }
