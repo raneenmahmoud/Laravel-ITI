@@ -41,7 +41,6 @@ class PostController extends Controller
     public function show($id){
         $post = Post::where('id', $id)->first();
         $comments = $post->comments;
-        $users = User::all();
         // dd($comments);
         return view('post.show',["comments"=>$comments],['post' => $post]);
     }
