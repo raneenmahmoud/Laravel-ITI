@@ -44,11 +44,11 @@
                         <div class="modal-dialog">
                             <div class="modal-content">
                             <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="exampleModalLabel">Confirm Delete</h1>
+                                <p class="modal-title fs-3 text-danger" id="exampleModalLabel">Confirm Delete</p>
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                <h6> Are you sure, you want to delete this post? </h6>
+                                <h5> Are you sure, you want to delete this post? </h5>
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
