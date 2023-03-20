@@ -53,18 +53,18 @@ class PostController extends Controller
     }
 
     public function store(Request $request){
-        $data = request()->all();
+        // $data = request()->all();
         // dd($data);
         //store data in variables
-        $title = request()->title;
-        $description = request()->description;
-        $userCreator = request()->post_creator;
+        // $title = request()->title;
+        // $description = request()->description;
+        // $userCreator = request()->post_creator;
 
         //store variables data in database
         Post::create([
-            'title' => $title,
-            'description' => $description,
-            'user_id' => $userCreator
+            'title' => request()->title,
+            'description' => request()->description,
+            'user_id' => request()->post_creator
         ]);
         return redirect()->route('posts.index');
     }
@@ -80,18 +80,18 @@ class PostController extends Controller
     }
 
     public function update(Request $request, $id){
-        $data = request()->all();
+        // $data = request()->all();
         // dd($data);
         //store data in variables
-        $title = request()->title;
-        $description = request()->description;
+        // $title = request()->title;
+        // $description = request()->description;
         // dd($title, $description);
         $post = post::find($id);
         $post->update(
             [
                 //column name -> came data of name of input
-               'title'=> $title,
-               'description'=> $description,
+               'title'=> request()->title,
+               'description'=> request()->description,
             
             ]);
         return redirect()->route('posts.index');
