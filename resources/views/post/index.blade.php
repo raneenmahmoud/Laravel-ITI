@@ -1,6 +1,4 @@
-@extends('Layout.app')
-
-@section('title') Index @endsection
+@extends('layouts.app')
 
 @section('content')
 <div class="text-center">
@@ -11,23 +9,34 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Title</th>
+            <th scope="col">Slug</th>
             <th scope="col">Posted By</th>
             <th scope="col">Created At</th>
             <th scope="col">Created At</th>
+            <th scope="col">Image</th>
             <th scope="col">Actions</th>
         </tr>
         </thead>
         <tbody>
 
             @foreach($posts as $post)
-                <tr>
+                <tr class="align-items-baseline">
                     <td>{{$post->id}}</td>
                     <td>{{$post->title}}</td>
+                    @if ($post->slug)
+                    <td>{{$post->slug}}</td>
+                    @else
+                    <td>Slug Not Found</td>
+                    @endif
                     <td>{{$post->user->name}}</td>
                     <td>{{$post->created_at->format('Y-m-d')}}</td>
                     <td>{{$post->updated_at->format('Y h:i:s A')}}</td>
-
-                    <td  class="d-flex gap-3">
+                    @if ($post->image)
+                    <td><img src="{{asset('storage/'.$post->image)}}" height="100vh" width="75vw"/></td>
+                    @else
+                    <td>No provided image</td>
+                    @endif
+                    <td  class="d-flex gap-3" style="height:15vh">
                     <x-button :link="route('posts.show', $post->id)">View</x-button>
                     <x-button :link="route('posts.edit', $post->id)" type="secondary"> Edit </x-button>
                     <form action="{{route('posts.destroy', $post->id)}}" method="post">
