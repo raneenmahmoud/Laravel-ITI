@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+<link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css"
+    />
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
@@ -56,7 +60,18 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Login') }}
                                 </button>
+                                
+                                <br><br>
+                                <i class="bi bi-github fs-4"></i>&nbsp &nbsp
+                                <a href="{{route('socilaites.redirect','github')}}" class="btn btn-dark">
+                                    {{ __('Login With Github') }}
+                                </a>
 
+                                <br><br>
+                                <i class="bi bi-google"></i>&nbsp &nbsp
+                                <a href="{{route('socilaites.redirect','google')}}" class="btn btn-dark">
+                                    {{ __('Login With Google') }}
+                                </a><br>
                                 @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}

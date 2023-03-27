@@ -3,6 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\Auth\SocialiteController;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Socialite\Facades\Socialite;
+use App\Models\User;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -48,3 +53,36 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get("/auth/{provider}/redirect",[SocialiteController::class,'redirect'])->name("socilaites.redirect");
+Route::get("/auth/{provider}/callback",[SocialiteController::class,'callback'])->name("socilaites.callback");
+
+
+
+Route::get('/auth/redirect', function () {
+    return Socialite::driver('github')->redirect();
+});
+ 
+Route::get('/auth/callback', function () {
+    //info of user in github
+    // $user = Socialite::driver('github')->stateless()->user();
+    
+    $githubUser = Socialite::driver('github')->stateless()->user();
+    // dd($githubUser);
+    $user = User::updateOrCreate([
+        'provider_id' => $githubUser->id,
+    ], [
+        'name' => $githubUser->nickname,
+        'email' => $githubUser->email,
+        'password' => Hash::make(Str::random(8)),
+        'provider_token' => $githubUser->token,
+        'provider_refresh_token' => $githubUser->refreshToken,
+    ]);
+ 
+    Auth::login($user);
+    return redirect('/posts');;
+    // dd($user);
+ 
+    // $user->token
+});
